@@ -43,7 +43,7 @@ def main():
     jobs = oci.pagination.list_call_get_all_results(rm.list_jobs, stack_id=STACK_ID).data
     applies = sorted(
         (j for j in jobs if str(j.operation).upper() == "APPLY"),
-        key=lambda j: j.time_created or oci.util.parse_datetime("1970-01-01T00:00:00+00:00"),
+        key=lambda j: j.time_created.isoformat() if j.time_created else "",
         reverse=True,
     )
     if applies:
