@@ -60,7 +60,7 @@ def main():
             print("Unexpected job state; not retrying.")
             return 1
         logs = oci.pagination.list_call_get_all_results(
-            rm.list_job_logs, latest.id).data
+            rm.get_job_logs, latest.id).data
         message = "\n".join(str(getattr(log, "message", "")) for log in logs).lower()
         if not any(term in message for term in CAPACITY_TERMS):
             print("Last failure is not confirmed to be a capacity failure; no retry.")
